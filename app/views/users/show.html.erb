@@ -16,7 +16,7 @@
 </p>
 
 <% if @isStaff %>
-  <%= link_to "Toggle", toggle_users_path(@user), class: "button" %>
+  <%= link_to "Toggle", user_toggle_path(@user), class: "button" %>
 <% end %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

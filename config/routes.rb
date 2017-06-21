@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :users do
-    collection do
       get 'toggle'
-    end
   end
   resources :games
   root to: 'games#index'

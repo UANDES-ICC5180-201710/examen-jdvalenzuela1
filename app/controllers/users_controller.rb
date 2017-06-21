@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :toggle
 
   # GET /users
   # GET /users.json
@@ -67,6 +67,8 @@ class UsersController < ApplicationController
   end
 
   def toggle
+    @user = User.find(params[:id])
+    
     if @user.is_staff
       @user.update_attributes(:is_staff => false)
     else
