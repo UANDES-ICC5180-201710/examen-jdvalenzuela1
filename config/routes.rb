@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
-  resources :users
+  devise_for :users
+  resources :users do
+    collection do
+      post 'toggle'
+    end
+  end
+  resources :games
+  root to: 'games#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

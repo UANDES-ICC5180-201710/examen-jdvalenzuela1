@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -10,6 +11,10 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @isStaff = false
+    if user_signed_in?
+      @isStaff = current_user.is_staff
+    end
   end
 
   # GET /users/new
@@ -61,6 +66,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def toggle
+    if @user.is_staff
+      @user.update_attributes(:is_staff => false)
+    else
+      @user.update_attributes(:is_staff => true)
+    end
+    @user.save
+    redirect_to show_user_path, notice: 'Change successfully.'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -69,6 +84,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :is_staff)
+      params.require(:user).permit(:first_name, :last_name, :email, :is_staff)
     end
 end

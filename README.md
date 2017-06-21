@@ -20,4 +20,7 @@
 
 * Deployment instructions
 
+rails generate model Game title:string description:text image_url:string
+rails generate scaffold_controller Game title:string description:text image_url:string
+
 * ...
